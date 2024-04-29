@@ -1,4 +1,10 @@
+# this file prepares the data, by adding new columns and further removing unreadable characters
+
 data <- read.csv("outcome.CSV", sep = ";", header = TRUE)
+
+change_to_bool_values <- function(column){
+  data[[column]] <- ifelse(data[[column]] == "Trifft zu", TRUE, FALSE)
+}
 
 # get distribution of digital openness among the participants
 dig_op_prefilter <- "Ich.bin.in.einem.IT.Berufsfeld.t.tig."
@@ -6,7 +12,7 @@ dig_op_1 <- data$`Ich.nutze.innerhalb.meines.Bekanntenkreis.oft.als.erste.Person
 dig_op_2 <- data$`Ich.informiere.mich.regelm..ig..ber.neueste.Entwicklungen.im.Software..und.Hardwarebereich.`
 dig_op_avg_data <- (dig_op_1 + dig_op_2) / 2
 
-data[[dig_op_prefilter]] <- ifelse(data[[dig_op_prefilter]] == "Trifft zu", TRUE, FALSE)
+data[[dig_op_prefilter]] <- change_to_bool_values(dig_op_prefilter)
 
 categorize <- function(value){
   if(value < 4){
@@ -38,7 +44,7 @@ ai_1 <- data$`Ich.habe.ein.generelles.Wissen..ber.die.Funktionsweise.von.KI.Mode
 ai_2 <- data$`Ich.kenne.mich.insbesondere.mit.der.Funktionsweise.von.Generative.AI.aus.`
 ai_avg_data <- (ai_1 + ai_2) / 2
 
-data_extended[[ai_prefilter]] <- ifelse(data[[ai_prefilter]] == "Trifft zu", TRUE, FALSE)
+data_extended[[ai_prefilter]] <- change_to_bool_values(ai_prefilter)
 
 categorize_ai <- function(value){
   if(value < 3){
@@ -50,6 +56,7 @@ categorize_ai <- function(value){
   }
 }
 
+# extend datatable by the group the participant is belonging to
 categories_ai <- sapply(dig_op_avg_data, categorize_ai)
 
 data_extended <- data.frame(data_extended, "preknowledge.about.ai" = categories_ai)
@@ -60,8 +67,18 @@ string_counts_before_filter <- table(data_extended[[categories_ai]])
 print(string_counts_before_filter)
 selected_columns[[categories_ai]] <- ifelse(selected_columns[[ai_prefilter]], selected_columns[[categories_ai]], "unexperienced")
 
+# get the count of the group members
 string_counts <- table(data_extended[[categories_ai]])
 string_counts2 <- table(data_extended[[ai_prefilter]])
 
 print(string_counts)
 print(string_counts2)
+
+# remove special characters
+replace_special <- function(x) {
+  x <- gsub("[^[:print:]]", "", x, perl = TRUE)
+  return(x)
+}
+
+data_extended <- apply(data_extended, 2, replace_special)
+data_extended <- as.data.frame(data_extended)

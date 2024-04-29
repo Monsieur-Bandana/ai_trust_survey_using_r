@@ -16,10 +16,15 @@ get_means <- function(dataset){
 
 
 # get vals st1
-get_means(data_extended$`Ich.glaube.nicht..dass.bei.dem.Gespr.ch..ber.mein.Problem.mit.der.Internetgeschwindigkeit.private.Daten.von.mir.freigegeben.werden.` <- data_extended$`Ich.glaube.nicht..dass.bei.dem.Gespr.ch..ber.mein.Problem.mit.der.Internetgeschwindigkeit.private.Daten.von.mir.freigegeben.werden.`)
+get_means(data_extended$`Ich.glaube.nicht..dass.bei.dem.Gespr.ch..ber.mein.Problem.mit.der.Internetgeschwindigkeit.private.Daten.von.mir.freigegeben.werden.`)
 
 # get vals st2
 get_means(data_extended$`Mir.ist.am.wichtigsten..dass.das.Problem.m.glichst.schnell.behoben.wird..wichtiger.als.der.Schutz.meiner.Privatsph.re.`)
 
 # get vals st3
 get_means(data_extended$`Eine.strenge.Anmeldekontrolle.beim.IT.Support.zum.Schutz.meiner.Privatsph.re.w.rde.mich.st.ren.`)
+
+# create barplot for ce
+# Count the occurrences of each label
+
+
