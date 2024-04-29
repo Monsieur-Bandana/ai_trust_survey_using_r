@@ -1,5 +1,6 @@
 source("rank_calculator.R")
 source("boxplot_creator.R")
+source("multiple_choice_calculator.R")
 
 ### Hypothesis 7 (Customers dont trust VAs)
 highest_possible_score <- 0
@@ -112,6 +113,14 @@ statement_39 <- as.numeric(data_extended[[str_39]])
 print_mean(statement_39)
 highest_possible_score <- highest_possible_score + 10
 summary <- summary + statement_39
+
+# In.diesen.Aufgaben.vertraue.ich.virtuellen.Assistenten..Mehrfache.Auswahl.m.glich.
+col_name <- "In.diesen.Aufgaben.vertraue.ich.virtuellen.Assistenten..Mehrfache.Auswahl.m.glich."
+data_extended[[col_name]] <- sapply(data_extended[[col_name]], multiple_choice_outcome)
+mult <- data_extended[[col_name]]
+print_mean(mult)
+highest_possible_score <- highest_possible_score + 12
+summary <- summary + mult
 
 data_extended <- data.frame(data_extended, "summary_of_h7" = summary)
 data_extended <- add_h_column("summary_of_h7", highest_possible_score, "score_h7")

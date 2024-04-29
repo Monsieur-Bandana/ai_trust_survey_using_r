@@ -1,11 +1,5 @@
 source("helper_functions.R")
 
-stringsplitter <- function(string){
-  substring_list <- unlist(strsplit(string, ";"))
-  substring_vector <- as.vector(substring_list)
-  return(substring_vector)
-}
-
 get_ranked_outcome <- function(value){
   string <- value
   label1 <- "Das Unternehmen betreibt alles im eigenen Haus und hat eigens dafr abgestellte Experten."
