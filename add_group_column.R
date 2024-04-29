@@ -1,9 +1,12 @@
 data <- read.csv("outcome.CSV", sep = ";", header = TRUE)
 
 # get distribution of digital openness among the participants
+dig_op_prefilter <- "Ich.bin.in.einem.IT.Berufsfeld.t.tig."
 dig_op_1 <- data$`Ich.nutze.innerhalb.meines.Bekanntenkreis.oft.als.erste.Person.neue.technische.oder.digitale.Produkte.`
 dig_op_2 <- data$`Ich.informiere.mich.regelm..ig..ber.neueste.Entwicklungen.im.Software..und.Hardwarebereich.`
 dig_op_avg_data <- (dig_op_1 + dig_op_2) / 2
+
+data[[dig_op_prefilter]] <- ifelse(data[[dig_op_prefilter]] == "Trifft zu", TRUE, FALSE)
 
 categorize <- function(value){
   if(value < 4){
@@ -17,4 +20,48 @@ categorize <- function(value){
 
 categories <- sapply(dig_op_avg_data, categorize)
 
-data_extended <- data.frame(data, categories)
+data_extended <- data.frame(data, "openess.towards.new.technologies" = categories)
+categories = "openess.towards.new.technologies"
+
+# selected_columns <- data_extended[, c(dig_op_prefilter, "categories")]
+data_extended[[categories]][data_extended[[dig_op_prefilter]]] <- "early adopter"
+
+string_counts <- table(data_extended[[categories]])
+string_counts2 <- table(data_extended[[dig_op_prefilter]])
+
+print(string_counts)
+print(string_counts2)
+
+# get distribution of ai openness among the participants
+ai_prefilter <- "Ich.habe.bereits.Large.Language.Models.eingesetzt..wie.z.B..Chat.GPT."
+ai_1 <- data$`Ich.habe.ein.generelles.Wissen..ber.die.Funktionsweise.von.KI.Modellen.`
+ai_2 <- data$`Ich.kenne.mich.insbesondere.mit.der.Funktionsweise.von.Generative.AI.aus.`
+ai_avg_data <- (ai_1 + ai_2) / 2
+
+data_extended[[ai_prefilter]] <- ifelse(data[[ai_prefilter]] == "Trifft zu", TRUE, FALSE)
+
+categorize_ai <- function(value){
+  if(value < 3){
+    return("unexperienced")
+  }else if(value >= 6){
+    return("experienced")
+  }else{
+    return("rather experienced")
+  }
+}
+
+categories_ai <- sapply(dig_op_avg_data, categorize_ai)
+
+data_extended <- data.frame(data_extended, "preknowledge.about.ai" = categories_ai)
+categories_ai = "preknowledge.about.ai"
+
+selected_columns <- data_extended[, c(ai_prefilter, categories_ai)]
+string_counts_before_filter <- table(data_extended[[categories_ai]])
+print(string_counts_before_filter)
+selected_columns[[categories_ai]] <- ifelse(selected_columns[[ai_prefilter]], selected_columns[[categories_ai]], "unexperienced")
+
+string_counts <- table(data_extended[[categories_ai]])
+string_counts2 <- table(data_extended[[ai_prefilter]])
+
+print(string_counts)
+print(string_counts2)
