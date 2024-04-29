@@ -1,10 +1,7 @@
+source("helper_functions.R")
 # this file prepares the data, by adding new columns and further removing unreadable characters
 
 data <- read.csv("outcome.CSV", sep = ";", header = TRUE)
-
-change_to_bool_values <- function(column){
-  data[[column]] <- ifelse(data[[column]] == "Trifft zu", TRUE, FALSE)
-}
 
 # get distribution of digital openness among the participants
 dig_op_prefilter <- "Ich.bin.in.einem.IT.Berufsfeld.t.tig."
@@ -74,11 +71,4 @@ string_counts2 <- table(data_extended[[ai_prefilter]])
 print(string_counts)
 print(string_counts2)
 
-# remove special characters
-replace_special <- function(x) {
-  x <- gsub("[^[:print:]]", "", x, perl = TRUE)
-  return(x)
-}
 
-data_extended <- apply(data_extended, 2, replace_special)
-data_extended <- as.data.frame(data_extended)

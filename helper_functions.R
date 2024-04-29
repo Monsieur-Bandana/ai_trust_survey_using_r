@@ -23,6 +23,17 @@ transformer <- function(labels_vector, numbers_vector, column_to_be_replaced){
   return(loop_data) 
 }
 
+
+change_to_bool_values <- function(column){
+  data[[column]] <- ifelse(data[[column]] == "Trifft zu", TRUE, FALSE)
+}
+
+# remove special characters
+replace_special <- function(x) {
+  x <- gsub("[^[:print:]]", "", x, perl = TRUE)
+  return(x)
+}
+
 print_mean <- function(dataset){
   mst <- mean(dataset)
   print(mst)
