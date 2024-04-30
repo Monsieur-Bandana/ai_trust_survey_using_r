@@ -23,7 +23,7 @@ data_extended <- add_h_column("summary_of_h5", 2, "score_h5")
 h5_counts <- table(data_extended[["score_h5"]])
 print(h5_counts)
 
-create_boxplot("summary_of_h5")
+create_boxplot("summary_of_h5", 2)
 
 ### H6
 data_extended <- data.frame(data_extended, "summary_of_h6" = op_closed_1)
@@ -31,4 +31,4 @@ data_extended <- add_h_column("summary_of_h6", 10, "score_h6")
 h6_counts <- table(data_extended[["score_h6"]])
 print(h6_counts)
 
-create_boxplot("summary_of_h6")
+create_boxplot("summary_of_h6", 10)

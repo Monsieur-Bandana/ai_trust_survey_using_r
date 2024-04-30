@@ -69,49 +69,53 @@ print_mean(statement_34)
 highest_possible_score <- highest_possible_score + 10
 summary <- summary + statement_34
 
-## the following outcomes are weighted
+### the following outcomes are weighted
+
+## sinc we want to proof, that human-driven suppor is preffered, statements with a higher human-autononmy get a higher weight
 # Ich.kommuniziere.ausschlie.lich.mit.einem.menschlichen.Mitarbeiter.
 str_35 <- "Ich.kommuniziere.ausschlie.lich.mit.einem.menschlichen.Mitarbeiter."
-statement_35 <- as.numeric(data_extended[[str_35]]) * 6
+statement_35 <- as.numeric(data_extended[[str_35]])
 print_mean(statement_35)
-highest_possible_score <- highest_possible_score + 60
+highest_possible_score <- highest_possible_score
 summary <- summary + statement_35
 
 # Ich.kommuniziere.ausschlie.lich.mit.einem.menschlichen.Mitarbeiter.
 str_36 <- "Ich.telefoniere.mit.einem.menschlichen.Mitarbeiter..Dieser.nutzt.den.Assistenten.optional..indem.er.mit.diesem.per.Chat.kommuniziert."
-statement_36 <- as.numeric(data_extended[[str_36]]) * 5
+statement_36 <- round(as.numeric(data_extended[[str_36]]) * 0.9)
 print_mean(statement_36)
-highest_possible_score <- highest_possible_score + 50
+highest_possible_score <- highest_possible_score + 9
 summary <- summary + statement_36
 
 # Ich.telefoniere.mit.einem.Menschen..der.virtuelle.Assistent.h.rt.das.Gespr.ch.mit.und.schl.gt.dem.Mitarbeiter.mehrere.Ergebnisse.vor..Der.Mitarbeiter.w.hlt.das.am.besten.Passende.nach.Gef.hl.Erfah...
 str_37 <- "Ich.telefoniere.mit.einem.Menschen..der.virtuelle.Assistent.h.rt.das.Gespr.ch.mit.und.schl.gt.dem.Mitarbeiter.mehrere.Ergebnisse.vor..Der.Mitarbeiter.w.hlt.das.am.besten.Passende.nach.Gef.hl.Erfah..."
-statement_37 <- as.numeric(data_extended[[str_37]]) * 4
+statement_37 <- round(as.numeric(data_extended[[str_37]]) * 0.7)
 print_mean(statement_37)
-highest_possible_score <- highest_possible_score + 40
+highest_possible_score <- highest_possible_score + 7
 summary <- summary + statement_37
 
 # Ich.telefoniere.mit.einem.virtuellen.Assistenten..dieser.erarbeitet.die.L.sung.weitgehend.selbstst.ndig..ein.Mensch.wird.lediglich.zur.abschlie.enden.Kontrolle.des.L.sungsvorschlags.eingesetzt.
 str_38 <- "Ich.telefoniere.mit.einem.virtuellen.Assistenten..dieser.erarbeitet.die.L.sung.weitgehend.selbstst.ndig..ein.Mensch.wird.lediglich.zur.abschlie.enden.Kontrolle.des.L.sungsvorschlags.eingesetzt."
-statement_38 <- as.numeric(data_extended[[str_38]]) * 3
+statement_38 <- round(as.numeric(data_extended[[str_38]]) * 0.5)
 print_mean(statement_38)
-highest_possible_score <- highest_possible_score + 30
+highest_possible_score <- highest_possible_score + 5
 summary <- summary + statement_38
 
 # Ich.chatte.direkt.mit.einem.virtuellen.Assistenten.und.dieser.gibt.mir.selbstst.ndig.L.sungsvorschl.ge.
+# Since the better the score is in this column, the more AI-driven solutions are suppoerted, we have to invert the score
 str_40 <- "Ich.chatte.direkt.mit.einem.virtuellen.Assistenten.und.dieser.gibt.mir.selbstst.ndig.L.sungsvorschl.ge."
 data_extended[[str_40]] <- 10 - as.numeric(data_extended[[str_40]])
-statement_40 <- as.numeric(data_extended[[str_40]]) * 2
+statement_40 <- as.numeric(data_extended[[str_40]])
 print_mean(statement_40)
-highest_possible_score <- highest_possible_score + 20
+highest_possible_score <- highest_possible_score + 10
 summary <- summary + statement_40
 
 # Ich.telefoniere.direkt.mit.einem.virtuellen.Assistenten.und.er.gibt.mir.selbstst.ndig.L.sungsvorschl.ge.
+# Since the better the score is in this column, the more AI-driven solutions are suppoerted, we have to invert the score, we also then have to nerve the score, since it proves that people even trust the auditive capacities very much
 str_39 <- "Ich.telefoniere.direkt.mit.einem.virtuellen.Assistenten.und.er.gibt.mir.selbstst.ndig.L.sungsvorschl.ge."
 data_extended[[str_39]] <- 10 - as.numeric(data_extended[[str_39]])
-statement_39 <- as.numeric(data_extended[[str_39]])
+statement_39 <- round(as.numeric(data_extended[[str_39]]) * 0.8)
 print_mean(statement_39)
-highest_possible_score <- highest_possible_score + 10
+highest_possible_score <- highest_possible_score + 8
 summary <- summary + statement_39
 
 # In.diesen.Aufgaben.vertraue.ich.virtuellen.Assistenten..Mehrfache.Auswahl.m.glich.
@@ -127,4 +131,4 @@ data_extended <- add_h_column("summary_of_h7", highest_possible_score, "score_h7
 h7_counts <- table(data_extended[["score_h7"]])
 print(h7_counts)
 
-create_boxplot("summary_of_h7")
+create_boxplot("summary_of_h7", highest_possible_score)

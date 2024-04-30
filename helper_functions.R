@@ -1,6 +1,6 @@
 ## for single choice questions: replaces label-values by numeric weights
 
-transformer_subfunction <- function(labels_vector, numbers_vector, loop_data){
+transformer_subfunction <- function(labels_vector, numbers_vector, loop_data, numeric = TRUE){
   gen_counter <- 1
   for(x in loop_data){
     counter <- 1
@@ -12,8 +12,10 @@ transformer_subfunction <- function(labels_vector, numbers_vector, loop_data){
     }
     gen_counter <- gen_counter + 1
   }
-  
-  loop_data <- as.numeric(loop_data)
+  if(numeric){
+    
+    loop_data <- as.numeric(loop_data)
+  }
   return(loop_data)
 }
 

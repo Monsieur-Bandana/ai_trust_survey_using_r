@@ -65,5 +65,5 @@ data_extended <- add_h_column("summary_of_h2", 80, "score_h2")
 h2_counts <- table(data_extended[["score_h2"]])
 print(h2_counts)
 
-create_boxplot("summary_of_h2")
+create_boxplot("summary_of_h2", 80)
 
