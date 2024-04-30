@@ -1,16 +1,16 @@
 source("helper_functions.R")
 
 create_boxplot <- function(string, max_val){
-  min_val <- max_val/2/70 * 100
+  min_val <- max_val/2/max_val * 100
   # to do: change values into %
   
   labels <- c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard", "rather experienced-early adopter", "rather experienced-laggard")
-  colors <- c("red", "orange", "blue", "green", "black", "black")
+  colors <- c("#0000FF", "#6666FF", "#FF3333", "#990000", "black", "black")
   
   color_palette <- transformer_subfunction(labels, colors, data_extended[["combined_openess"]], FALSE)
-  values_vec <- data_extended[[string]]/70*100
+  values_vec <- data_extended[[string]]/max_val*100
   print(values_vec)
-  boxplot(values_vec, pch = 19)
+  boxplot(values_vec, pch = 19, main=string)
   
   # Points
   for (i in 1:length(values_vec)){
