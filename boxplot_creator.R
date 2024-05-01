@@ -10,7 +10,8 @@ create_boxplot <- function(string, max_val){
   color_palette <- transformer_subfunction(labels, colors, data_extended[["combined_openess"]], FALSE)
   values_vec <- data_extended[[string]]/max_val*100
   print(values_vec)
-  boxplot(values_vec, pch = 19, main=string)
+  
+  boxplot(values_vec, pch = 19, main=string, ylab = "Support of Hypothesis in percent")
   
   # Points
   for (i in 1:length(values_vec)){
@@ -28,13 +29,45 @@ create_boxplot <- function(string, max_val){
   legend("bottomright", legend = labels, col = colors, pch = 19, title = "Data", xpd = TRUE, inset = c(0, -0.25))
 }
 
-create_violin <- function(string){
-  library(ggplot2)
-  new_vector <- 1:41
-  plot_data <- as.data.frame(new_vector)
-  colnames(plot_data) <- c("name")
-  plot_data["value"] <- data_extended[[string]]
-  ggplot( plot_data,  aes(x=name, y=value), col=terrain.colors(4) ) + geom_violin()
-  # myjitter <- jitter(data_extended[[string]])
-  # points(jitter(myjitter, data_extended[[string]]), col = "black", pch = 20)
+create_mulitle_plots <- function(){
+  
+  labels <- c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard", "rather experienced-early adopter", "rather experienced-laggard")
+  colors <- c("springgreen4", "springgreen2", "#FF3333", "#990000", "black", "black")
+  # for loop 3x:
+  color_palette <- transformer_subfunction(labels, colors, data_extended[["combined_openess"]], FALSE)
+  
+  par(mar = c(5, 2, 4, 18))
+  boxplot(values ~ hypotheses,data = data_frame_for_graph, pch = 19, ylab = "Support of hypotheses in percent")
+  abline(h = 50, lty = 2)
+  # Points
+  # for(h in data_frame_for_graph)
+  for (i in 1:length(color_palette)) {
+    # Subset data for the current iteration
+    subset_data1 <- data_frame_for_graph[i, ]
+    h2 <- i+length(color_palette)
+    print(h2)
+    h7 <- i+2*length(color_palette)
+    subset_data2 <- data_frame_for_graph[h2, ]
+    subset_data3 <- data_frame_for_graph[h7, ]
+    subset_data <- rbind(subset_data1, subset_data2, subset_data3)
+    print(subset_data)
+    
+    # Create the stripchart
+    stripchart(values ~ hypotheses,
+               data = subset_data,
+               method = "jitter",   # Random noise
+               pch = 19,
+               offset = 1,
+               col = color_palette[i],  # Color of the symbol
+               vertical = TRUE,         # Vertical mode
+               add = TRUE)              # Add it over
+  }
+    
+  # Assuming color_palette is a vector of colors for each group
+  
+                  # Add it over
+  legend("topright", inset=c(2,2), legend = labels, col = colors, pch = 19)
+  return()
+  
 }
+

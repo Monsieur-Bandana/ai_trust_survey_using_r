@@ -51,6 +51,11 @@ invert_values <- function(column_name){
   data_extended[[column_name]] <- 10 - as.numeric(data_extended[[column_name]])
   return(data_extended)}
 
+calculate_percentile <- function(string, highest_possible_value){
+  values_vec <- data_extended[[string]]/highest_possible_value*100
+  return(values_vec)
+}
+
 categorize_h <- function(value, max_value){
   min_val <- max_value / 2
   if(value > min_val){
