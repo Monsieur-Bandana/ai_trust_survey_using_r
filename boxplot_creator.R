@@ -36,7 +36,7 @@ create_mulitle_plots <- function(){
   # for loop 3x:
   color_palette <- transformer_subfunction(labels, colors, data_extended[["combined_openess"]], FALSE)
   
-  par(mar = c(5, 2, 4, 18))
+  par(mar = c(5, 3, 2, 17), xpd=TRUE)
   boxplot(values ~ hypotheses,data = data_frame_for_graph, pch = 19, ylab = "Support of hypotheses in percent")
   abline(h = 50, lty = 2)
   # Points
@@ -66,7 +66,7 @@ create_mulitle_plots <- function(){
   # Assuming color_palette is a vector of colors for each group
   
                   # Add it over
-  legend("topright", inset=c(2,2), legend = labels, col = colors, pch = 19)
+  legend("right", inset=c(-0.6,0), legend = labels, col = colors, pch = 19)
   return()
   
 }
