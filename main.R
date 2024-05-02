@@ -6,6 +6,7 @@ source("h2.R")
 source("h3_h4.R")
 source("h5_h6.R")
 source("h7.R")
+source("overview_table.R")
 
 data <- read.csv("outcome43.CSV", sep = ";", header = TRUE)
 data_extended <- data
@@ -88,5 +89,7 @@ create_mulitle_plots(filtered_df_rex_ma)
 filtered_df_uex_la <- data_frame_for_graph[data_frame_for_graph$combined_openess == "unexperienced-laggard", ]
 
 create_mulitle_plots(filtered_df_uex_la)
+
+execute_overview()
 
 write.csv(data_extended, "C:\\Users\\nicol\\Documents\\GitCode\\winkelmann_semi\\ai_trust_survey_using_r\\extended_data.csv", row.names=FALSE)
