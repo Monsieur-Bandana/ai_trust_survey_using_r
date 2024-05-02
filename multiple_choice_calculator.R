@@ -6,6 +6,6 @@ multiple_choice_outcome <- function(value){
   # print(calc_vec)
   # number of semicolons says, how many tasks got selected
   vec_length <- length(calc_vec)
-  endpoints <- 12-vec_length
+  endpoints <- 6-vec_length
   return(endpoints)
 }

@@ -1,7 +1,7 @@
 source("helper_functions.R")
 source("boxplot_creator.R")
 
-### H5 Customers want to be informed explicitely & H6 want to be informed regulary about collection of data
+### H3 Customers want to be informed explicitely & H3 want to be informed regulary about collection of data
 
 # In.welcher.Regelm..igkeit.m.chten.sie..ber.das.Sammeln.von.Trainingsdaten.informiert.werden.
 labels_short <- "In.welcher.Regelm..igkeit.m.chten.sie..ber.das.Sammeln.von.Trainingsdaten.informiert.werden."

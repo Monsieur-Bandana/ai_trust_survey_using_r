@@ -4,8 +4,8 @@ create_boxplot <- function(string, max_val){
   min_val <- max_val/2/max_val * 100
   # to do: change values into %
   
-  labels <- c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard", "rather experienced-early adopter", "rather experienced-laggard")
-  colors <- c("#0000FF", "#6666FF", "#FF3333", "#990000", "black", "black")
+  labels <- c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard", "others")
+  colors <- c("#0000FF", "#6666FF", "#FF3333", "#990000", "black")
   
   color_palette <- transformer_subfunction(labels, colors, data_extended[["combined_openess"]], FALSE)
   values_vec <- data_extended[[string]]/max_val*100
@@ -31,8 +31,8 @@ create_boxplot <- function(string, max_val){
 
 create_mulitle_plots <- function(){
   
-  labels <- c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard", "rather experienced-early adopter", "rather experienced-laggard")
-  colors <- c("springgreen4", "springgreen2", "#FF3333", "#990000", "black", "black")
+  labels <- c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard", "others")
+  colors <- c("springgreen4", "springgreen2", "#FF3333", "#990000", "black")
   # for loop 3x:
   color_palette <- transformer_subfunction(labels, colors, data_extended[["combined_openess"]], FALSE)
   
@@ -50,13 +50,13 @@ create_mulitle_plots <- function(){
     subset_data2 <- data_frame_for_graph[h2, ]
     subset_data3 <- data_frame_for_graph[h7, ]
     subset_data <- rbind(subset_data1, subset_data2, subset_data3)
-    print(subset_data)
-    
+ 
     # Create the stripchart
     stripchart(values ~ hypotheses,
                data = subset_data,
                method = "jitter",   # Random noise
                pch = 19,
+               jitter = 0.2,
                offset = 0.9,
                col = color_palette[i],  # Color of the symbol
                vertical = TRUE,         # Vertical mode

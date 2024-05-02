@@ -124,7 +124,7 @@ execute_h7 <- function()
   data_extended[[col_name]] <- sapply(data_extended[[col_name]], multiple_choice_outcome)
   mult <- data_extended[[col_name]]
   print_mean(mult)
-  highest_possible_score <- highest_possible_score + 12
+  highest_possible_score <- highest_possible_score + 6
   summary <- summary + mult
   
   summary[length(summary) + 1] <- highest_possible_score

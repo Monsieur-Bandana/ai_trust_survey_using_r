@@ -88,5 +88,7 @@ execute_add_group_column <-function(){
   
   # Print the label combinations and their frequencies
   print(label_frequency)
+  
+  data_extended[["combined_openess"]] <- gsub("rather experienced-early adopter|rather experienced-laggard", "others", data_extended[["combined_openess"]])
   return(data_extended)
 }
