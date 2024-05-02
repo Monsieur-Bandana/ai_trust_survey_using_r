@@ -29,7 +29,28 @@ data_extended[["summary_of_h2_percentile"]] <- calculate_percentile("summary_of_
 data_extended[["summary_of_h7_percentile"]] <- calculate_percentile("summary_of_h7", highest_possible_score_h7)
 data_frame_for_graph <- data.frame(
   values = c(data_extended[["summary_of_h1_percentile"]], data_extended[["summary_of_h2_percentile"]], data_extended[["summary_of_h7_percentile"]]),
-  hypotheses = c(hypothesis_h1, hypothesis_h2, hypothesis_h7)
+  hypotheses = c(hypothesis_h1, hypothesis_h2, hypothesis_h7),
+  combined_openess = rep(data_extended[["combined_openess"]], times = 3)
 )
 
-create_mulitle_plots()
+
+labels <- c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard", "others")
+colors <- c("springgreen4", "springgreen2", "#FF3333", "#990000", "black")
+color_palette <- transformer_subfunction(labels, colors, data_frame_for_graph$combined_openess, FALSE)
+data_frame_for_graph["colors"] <- color_palette
+
+create_mulitle_plots(data_frame_for_graph)
+
+filtered_df <- data_frame_for_graph[data_frame_for_graph$combined_openess != "rather experienced-majority", ]
+filtered_df <- filtered_df[filtered_df$combined_openess != "unexperienced-laggard", ]
+filtered_df <- filtered_df[filtered_df$combined_openess != "others", ]
+
+create_mulitle_plots(filtered_df)
+
+filtered_df2 <- data_frame_for_graph[data_frame_for_graph$combined_openess != "experienced-early adopter", ]
+filtered_df2 <- filtered_df2[filtered_df2$combined_openess != "experienced-majority", ]
+filtered_df2 <- filtered_df2[filtered_df2$combined_openess != "others", ]
+
+create_mulitle_plots(filtered_df2)
+
+

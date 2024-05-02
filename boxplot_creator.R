@@ -29,27 +29,27 @@ create_boxplot <- function(string, max_val){
   legend("bottomright", legend = labels, col = colors, pch = 19, title = "Data", xpd = TRUE, inset = c(0, -0.25))
 }
 
-create_mulitle_plots <- function(){
-  
-  labels <- c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard", "others")
-  colors <- c("springgreen4", "springgreen2", "#FF3333", "#990000", "black")
-  # for loop 3x:
-  color_palette <- transformer_subfunction(labels, colors, data_extended[["combined_openess"]], FALSE)
+create_mulitle_plots <- function(data_frame_in_question){
+
   
   par(mar = c(5, 5, 2, 17), xpd=TRUE)
-  boxplot(values ~ hypotheses,data = data_frame_for_graph, pch = 19, ylab = "Support of hypotheses in percent")
+
+  boxplot(values ~ hypotheses,data = data_frame_in_question, pch = 19, ylab = "Support of hypotheses in percent")
   abline(h = 50, lty = 2)
   # Points
-  # for(h in data_frame_for_graph)
-  for (i in 1:length(color_palette)) {
+  # for(h in data_frame_in_question)
+  data_frame_length <- nrow(data_frame_in_question)/3
+  for (i in 1:data_frame_length) {
     # Subset data for the current iteration
-    subset_data1 <- data_frame_for_graph[i, ]
-    h2 <- i+length(color_palette)
+    subset_data1 <- data_frame_in_question[i, ]
+    h2 <- i+data_frame_length
     print(h2)
-    h7 <- i+2*length(color_palette)
-    subset_data2 <- data_frame_for_graph[h2, ]
-    subset_data3 <- data_frame_for_graph[h7, ]
+    h7 <- i+2*data_frame_length
+    subset_data2 <- data_frame_in_question[h2, ]
+    subset_data3 <- data_frame_in_question[h7, ]
     subset_data <- rbind(subset_data1, subset_data2, subset_data3)
+    
+    print(subset_data)
  
     # Create the stripchart
     stripchart(values ~ hypotheses,
@@ -58,7 +58,7 @@ create_mulitle_plots <- function(){
                pch = 19,
                jitter = 0.2,
                offset = 0.9,
-               col = color_palette[i],  # Color of the symbol
+               col = subset_data$colors,  # Color of the symbol
                vertical = TRUE,         # Vertical mode
                add = TRUE)              # Add it over
   }
