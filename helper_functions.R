@@ -25,12 +25,6 @@ stringsplitter <- function(string){
   return(substring_vector)
 }
 
-transformer <- function(labels_vector, numbers_vector, column_to_be_replaced){
-  loop_data <- data_extended[[column_to_be_replaced]]
-  loop_data <- transformer_subfunction(labels_vector, numbers_vector, loop_data)
-  return(loop_data) 
-}
-
 
 change_to_bool_values <- function(column){
   data[[column]] <- ifelse(data[[column]] == "Trifft zu", TRUE, FALSE)

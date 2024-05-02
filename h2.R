@@ -22,7 +22,7 @@ execute_h2 <-function()
   label3 <- "Der virtuelle Assistent sammelt gar keine Daten. Dadurch kann er sich aber leistungstechnisch nicht verbessern. Seine Antworten sind zeitlich auf dem Stand seines letzten Updates."
   labels_vector <- c(label1, label2, label3)
   numbers_vector <- c(10, 5, 0)
-  data_extended[[labels_short]] <- transformer(labels_vector, numbers_vector, labels_short)
+  data_extended[[labels_short]] <- transformer_subfunction(labels_vector, numbers_vector, data_extended[[labels_short]])
   op_closed_1 <- data_extended[[labels_short]]
   print_mean(op_closed_1)
   summarized_value <- sum(op_closed_1)
@@ -36,7 +36,7 @@ execute_h2 <-function()
   label4 <- "Der virtuelle Assistent sollte gar kein Gedchtnis haben. Er bezieht sich in seinen Antworten lediglich auf das zuletzt von Ihnen Gesagte. Der vorhergehende Dialog hat keinen Einfluss auf seine Antwort"
   labels_vector2 <- c(label1, label2, label3, label4)
   numbers_vector2 <- c(10, 5, 2, 0)
-  data_extended[[labels_short2]] <- transformer(labels_vector2, numbers_vector2, labels_short2)
+  data_extended[[labels_short2]] <- transformer_subfunction(labels_vector2, numbers_vector2, data_extended[[labels_short2]])
   op_closed_2 <- data_extended[[labels_short2]]
   print_mean(op_closed_2)
   summarized_value <- sum(op_closed_2)
