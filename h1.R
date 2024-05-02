@@ -6,7 +6,9 @@ source("boxplot_creator.R")
 execute_h1 <- function(){
   # Ich.sehe.meine.Privatsph.re.nur.dann.gef.hrdet..wenn.ein.Mensch.meine.aufgezeichneten.Daten.mitliest.
   str_1 <- "Ich.sehe.meine.Privatsph.re.nur.dann.gef.hrdet..wenn.ein.Mensch.meine.aufgezeichneten.Daten.mitliest."
-  statement_1 <- as.numeric(data_extended[[str_1]])
+  # = reading AI is seen as danger
+  data_extended <- invert_values(str_1)
+  statement_1 <- data_extended[[str_1]]
   print(str_1)
   print_mean(statement_1)
   
@@ -54,5 +56,14 @@ execute_h1 <- function(){
   
   summary <- statement_1 + statement_2 + statement_3 + rank + statement_23 + statement_27 + statement_24
   
-  return(summary)
+  df_h1 <<- data.frame(mean(statement_1), mean(statement_2), mean(statement_3), mean(rank), mean(statement_23), mean(statement_27), mean(statement_24))
+  
+  highest_possible_score_h1 <<- 70
+  
+  data_extended[["summary_of_h1"]] <- summary
+  data_extended[["score_h1"]] <- add_h_column(summary, highest_possible_score_h1)
+  # h1_counts <- table(data_extended[["score_h1"]])
+  # create_boxplot("summary_of_h1", 70)s
+  
+  return(data_extended)
 }

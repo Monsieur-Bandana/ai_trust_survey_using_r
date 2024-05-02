@@ -58,7 +58,12 @@ execute_h2 <-function()
   statement_26 <- as.numeric(data_extended[["Das.Telekommunikationsunternehmen.kauft.einen.etablierten.KI.Assistenten.von.einem.Spezialisten.Unternehmen..z.B..ChatGPT.von.OpenAI..ein..Es.ist.nicht.nachvollziehbar..wie.und.basierend.auf.welch..."]])
   print_mean(statement_26)
   
+  highest_possible_score_h2 <<- 80
+  mean(statement_1)
+  df_h2 <<- data.frame(mean(statement_1), mean(statement_2), mean(statement_3), mean(op_closed_1), mean(op_closed_2), mean(statement_23), mean(statement_25), mean(statement_26))
   
   summary <- statement_1 + statement_2 + statement_3 + op_closed_1 + op_closed_2 + statement_23 + statement_25 + statement_26
-  return(summary)}
+  data_extended[["summary_of_h2"]] <- summary
+  data_extended[["score_h2"]] <- add_h_column(summary, highest_possible_score_h2)
+  return(data_extended)}
 

@@ -65,9 +65,9 @@ categorize_h <- function(value, max_value){
   }
 }
 
-add_h_column <- function(column_name, max_value, name_of_new_column){
-  categories_h <- sapply(data_extended[[column_name]], categorize_h, max_value=max_value)
+add_h_column <- function(column_name, max_value){
+  categories_h <- sapply(column_name, categorize_h, max_value=max_value)
   
-  data_extended[[name_of_new_column]] <- categories_h
-  return(data_extended)
+  # data_extended[[name_of_new_column]] <- categories_h
+  return(categories_h)
 }

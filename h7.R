@@ -14,6 +14,7 @@ execute_h7 <- function()
   print_mean(statement_26)
   highest_possible_score <- highest_possible_score + 10
   summary <- summary + statement_26
+  df_h7 <<- data.frame(mean(statement_26))
   
   # Ich.m.chte.nicht..dass.ein.virtueller.Assistent.dar.ber.urteilt..an.welchen.Mitarbeiter.mein.Problem.weitergeleitet.wird.
   str_28 <- "Ich.m.chte.nicht..dass.ein.virtueller.Assistent.dar.ber.urteilt..an.welchen.Mitarbeiter.mein.Problem.weitergeleitet.wird."
@@ -21,6 +22,7 @@ execute_h7 <- function()
   print_mean(statement_28)
   highest_possible_score <- highest_possible_score + 10
   summary <- summary + statement_28
+  df_h7[["statement_28"]] <<- mean(statement_28)
   
   # Ich.denke.f.r.meine.Zwecke.sind.die.Ergebnisse.des.virtuellen.Assistenten.v.llig.ausreichend.
   str_29 <- "Ich.denke.f.r.meine.Zwecke.sind.die.Ergebnisse.des.virtuellen.Assistenten.v.llig.ausreichend."
@@ -29,6 +31,7 @@ execute_h7 <- function()
   print_mean(statement_29)
   highest_possible_score <- highest_possible_score + 10
   summary <- summary + statement_29
+  df_h7[["statement_29"]] <<- mean(statement_29)
   
   # Ich.vertraue.den.Ergebnissen.eines.virtuellen.Assistenten.
   str_30 <- "Ich.vertraue.den.Ergebnissen.eines.virtuellen.Assistenten."
@@ -37,6 +40,7 @@ execute_h7 <- function()
   print_mean(statement_30)
   highest_possible_score <- highest_possible_score + 10
   summary <- summary + statement_30
+  df_h7[["statement_30"]] <<- mean(statement_30)
   
   # Ich.vertraue.den.Ergebnissen.eines.virtuellen.Assistenten.mehr.als.denen.eines.Menschen.
   str_31 <- "Ich.vertraue.den.Ergebnissen.eines.virtuellen.Assistenten.mehr.als.denen.eines.Menschen."
@@ -45,22 +49,25 @@ execute_h7 <- function()
   print_mean(statement_31)
   highest_possible_score <- highest_possible_score + 10
   summary <- summary + statement_31
+  df_h7[["statement_31"]] <<- mean(statement_31)
   
   # Wenn.der.virtuelle.Assistent.zu.seinem.L.sungsvorschlag.zus.tzlich.eine.Begr.ndung.oder.Argumentation.ausgibt..vertraue.ich.seinem.Ergebnis.eher.
   str_32 <- "Wenn.der.virtuelle.Assistent.zu.seinem.L.sungsvorschlag.zus.tzlich.eine.Begr.ndung.oder.Argumentation.ausgibt..vertraue.ich.seinem.Ergebnis.eher."
   data_extended[[str_32]] <- 10 - as.numeric(data_extended[[str_32]])
   statement_32 <- data_extended[[str_32]]
   print_mean(statement_32)
-  highest_possible_score <- highest_possible_score + 10
-  summary <- summary + statement_32
+  # highest_possible_score <- highest_possible_score + 10
+  # summary <- summary + statement_32
+  df_h7[["statement_32"]] <<- mean(statement_32)
   
   # Wenn.die.Firma.transparent.darstellt..auf.welcher.Datengrundlage.der.virtuelle.Assistent.trainiert.wurde.vertraue.ich.dem.virtuellen.Assistenten.mehr.
   str_33 <- "Wenn.die.Firma.transparent.darstellt..auf.welcher.Datengrundlage.der.virtuelle.Assistent.trainiert.wurde.vertraue.ich.dem.virtuellen.Assistenten.mehr."
   data_extended[[str_33]] <- 10 - as.numeric(data_extended[[str_33]])
   statement_33 <- data_extended[[str_33]]
   print_mean(statement_33)
-  highest_possible_score <- highest_possible_score + 10
-  summary <- summary + statement_33
+  # highest_possible_score <- highest_possible_score + 10
+  # summary <- summary + statement_33
+  df_h7[["statement_33"]] <<- mean(statement_33)
   
   # Einen.Techniker..der.sich.vor.Ort.um.mein.Problem.k.mmert..halte.ich.f.r.unprofessionell.wenn.ich.merke..dass.er.auf.seinem.Smartphone.einen.virtuellen.Assistenten.einsetzt.
   str_34 <- "Einen.Techniker..der.sich.vor.Ort.um.mein.Problem.k.mmert..halte.ich.f.r.unprofessionell.wenn.ich.merke..dass.er.auf.seinem.Smartphone.einen.virtuellen.Assistenten.einsetzt."
@@ -69,6 +76,7 @@ execute_h7 <- function()
   print_mean(statement_34)
   highest_possible_score <- highest_possible_score + 10
   summary <- summary + statement_34
+  df_h7[["statement_34"]] <<- mean(statement_34)
   
   ### the following outcomes are weighted
   
@@ -79,9 +87,11 @@ execute_h7 <- function()
   print_mean(statement_35)
   highest_possible_score <- highest_possible_score
   summary <- summary + statement_35
+  df_h7[["statement_35"]] <<- mean(statement_35)
   
   # Ich.kommuniziere.ausschlie.lich.mit.einem.menschlichen.Mitarbeiter.
   str_36 <- "Ich.telefoniere.mit.einem.menschlichen.Mitarbeiter..Dieser.nutzt.den.Assistenten.optional..indem.er.mit.diesem.per.Chat.kommuniziert."
+  df_h7[["statement_36"]] <<- mean(as.numeric(data_extended[[str_36]]))
   statement_36 <- round(as.numeric(data_extended[[str_36]]) * 0.9)
   print_mean(statement_36)
   highest_possible_score <- highest_possible_score + 9
@@ -89,6 +99,7 @@ execute_h7 <- function()
   
   # Ich.telefoniere.mit.einem.Menschen..der.virtuelle.Assistent.h.rt.das.Gespr.ch.mit.und.schl.gt.dem.Mitarbeiter.mehrere.Ergebnisse.vor..Der.Mitarbeiter.w.hlt.das.am.besten.Passende.nach.Gef.hl.Erfah...
   str_37 <- "Ich.telefoniere.mit.einem.Menschen..der.virtuelle.Assistent.h.rt.das.Gespr.ch.mit.und.schl.gt.dem.Mitarbeiter.mehrere.Ergebnisse.vor..Der.Mitarbeiter.w.hlt.das.am.besten.Passende.nach.Gef.hl.Erfah..."
+  df_h7[["statement_37"]] <<- mean(as.numeric(data_extended[[str_37]]))
   statement_37 <- round(as.numeric(data_extended[[str_37]]) * 0.7)
   print_mean(statement_37)
   highest_possible_score <- highest_possible_score + 7
@@ -96,6 +107,7 @@ execute_h7 <- function()
   
   # Ich.telefoniere.mit.einem.virtuellen.Assistenten..dieser.erarbeitet.die.L.sung.weitgehend.selbstst.ndig..ein.Mensch.wird.lediglich.zur.abschlie.enden.Kontrolle.des.L.sungsvorschlags.eingesetzt.
   str_38 <- "Ich.telefoniere.mit.einem.virtuellen.Assistenten..dieser.erarbeitet.die.L.sung.weitgehend.selbstst.ndig..ein.Mensch.wird.lediglich.zur.abschlie.enden.Kontrolle.des.L.sungsvorschlags.eingesetzt."
+  df_h7[["statement_38"]] <<- mean(as.numeric(data_extended[[str_38]]))
   statement_38 <- round(as.numeric(data_extended[[str_38]]) * 0.5)
   print_mean(statement_38)
   highest_possible_score <- highest_possible_score + 5
@@ -109,11 +121,13 @@ execute_h7 <- function()
   print_mean(statement_40)
   highest_possible_score <- highest_possible_score + 10
   summary <- summary + statement_40
+  df_h7[["statement_40"]] <<- mean(as.numeric(statement_40))
   
   # Ich.telefoniere.direkt.mit.einem.virtuellen.Assistenten.und.er.gibt.mir.selbstst.ndig.L.sungsvorschl.ge.
   # Since the better the score is in this column, the more AI-driven solutions are suppoerted, we have to invert the score, we also then have to nerve the score, since it proves that people even trust the auditive capacities very much
   str_39 <- "Ich.telefoniere.direkt.mit.einem.virtuellen.Assistenten.und.er.gibt.mir.selbstst.ndig.L.sungsvorschl.ge."
   data_extended[[str_39]] <- 10 - as.numeric(data_extended[[str_39]])
+  df_h7[["statement_39"]] <<- mean(as.numeric(data_extended[[str_39]]))
   statement_39 <- round(as.numeric(data_extended[[str_39]]) * 0.8)
   print_mean(statement_39)
   highest_possible_score <- highest_possible_score + 8
@@ -126,7 +140,12 @@ execute_h7 <- function()
   print_mean(mult)
   highest_possible_score <- highest_possible_score + 6
   summary <- summary + mult
+  df_h7[["mult"]] <<- mean(mult)
+
   
-  summary[length(summary) + 1] <- highest_possible_score
-  return(summary)}
+  highest_possible_score_h7 <<- highest_possible_score
+  # summary[length(summary) + 1] <- highest_possible_score
+  data_extended[["summary_of_h7"]] <- summary
+  data_extended[["score_h7"]] <- add_h_column(summary, highest_possible_score)
+  return(data_extended)}
 
