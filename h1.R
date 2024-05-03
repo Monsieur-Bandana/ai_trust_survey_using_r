@@ -8,25 +8,24 @@ execute_h1 <- function(){
   str_1 <- "Ich.sehe.meine.Privatsph.re.nur.dann.gef.hrdet..wenn.ein.Mensch.meine.aufgezeichneten.Daten.mitliest."
   # = reading AI is seen as danger
   data_extended <- invert_values(str_1)
-  statement_1 <- data_extended[[str_1]]
+  statement_14 <- data_extended[[str_1]]
   print(str_1)
-  print_mean(statement_1)
+  print_mean(statement_14)
   
   # Das.ist.mir.bekannt.
-  statement_0 <- as.numeric(data_extended[["Das.ist.mir.bekannt."]])
-  print_mean(statement_0)
+  statement_15 <- as.numeric(data_extended[["Das.ist.mir.bekannt."]])
   
   # Ich.habe.wenig.Bedenken.dar.ber..wenn.die.Daten.in.einem.Archiv.lediglich.gelagert.werden.
   str_2 <- "Ich.habe.wenig.Bedenken.dar.ber..wenn.die.Daten.in.einem.Archiv.lediglich.gelagert.werden."
-  statement_2 <- as.numeric(data_extended[[str_2]])
+  statement_16 <- as.numeric(data_extended[[str_2]])
   print(str_2)
-  print_mean(statement_2)
+  print_mean(statement_16)
   
   # Ich.habe.wenig.Bedenken.dar.ber..dass.die.Daten.in.ein.Archiv.gelangen..das.von.einer.KI.ausgelesen.wird.
   str_3 <- "Ich.habe.wenig.Bedenken.dar.ber..dass.die.Daten.in.ein.Archiv.gelangen..das.von.einer.KI.ausgelesen.wird."
   data_extended <- invert_values(str_3)
-  statement_3 <- data_extended[[str_3]]
-  print_mean(statement_3)
+  statement_17 <- data_extended[[str_3]]
+  print_mean(statement_17)
   
   # Wir.nehmen.an..das.Unternehmen.speichert.ihre.Gespr.chsverl.ufe..Ordnen.Sie.im.Folgenden.wie.und.wo.die.Daten.gespeichert.werden.sollen.
   col_name <- "Wir.nehmen.an..das.Unternehmen.speichert.ihre.Gespr.chsverl.ufe..Ordnen.Sie.im.Folgenden.wie.und.wo.die.Daten.gespeichert.werden.sollen."
@@ -54,9 +53,9 @@ execute_h1 <- function(){
   print(str_st24)
   print_mean(statement_24)
   
-  summary <- statement_1 + statement_2 + statement_3 + rank + statement_23 + statement_27 + statement_24
+  summary <- statement_14 + statement_17 + statement_16 + rank + statement_23 + statement_27 + statement_24
   
-  df_h1 <<- data.frame(mean(statement_1), mean(statement_2), mean(statement_3), mean(rank), mean(statement_23), mean(statement_27), mean(statement_24))
+  df_h1 <<- data.frame(mean(statement_14), mean(statement_15), mean(statement_16), mean(statement_17), mean(rank), mean(statement_23), mean(statement_27), mean(statement_24))
   
   highest_possible_score_h1 <<- 70
   

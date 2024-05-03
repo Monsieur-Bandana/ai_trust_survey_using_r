@@ -9,9 +9,11 @@ add_new_score_line <- function(row_name, score_name, summary_name){
 
 get_t_test <- function(summary_name){
   data <- data_extended[[summary_name]]
-  t_test_result <<- t.test(data, mu = 50)
+  t_test_result <- t.test(data, mu = 50)
+  deviation <- sd(data_extended[[summary_name]])
+  variance <- var(data_extended[[summary_name]])
   print(t_test_result)
-  new_row <- c(t_test_result$statistic, t_test_result$parameter, t_test_result$p.value, t_test_result$conf.int[1], t_test_result$conf.int[2])
+  new_row <- c(t_test_result$statistic, t_test_result$parameter, t_test_result$p.value, variance, deviation, t_test_result$conf.int[1], t_test_result$conf.int[2])
   df_t <- rbind(df_t, new_row)
   return(df_t)
 }
@@ -49,7 +51,7 @@ execute_overview <- function(){
   overview_data <<- add_new_score_line("H7", "score_h7", "summary_of_h7_percentile")
   
   
-  df_t <<- data.frame(statstic=c(0), df=c(0), p_value=c(0), confidence_interval_1=c(0), confidence_interval_2=c(0))
+  df_t <<- data.frame(statstic=c(0), df=c(0), p_value=c(0), variance=(0), deviation=(0), confidence_interval_1=c(0), confidence_interval_2=c(0))
   df_t <<- get_t_test("summary_of_h1_percentile")
   df_t <<- df_t[-1, ]
   df_t <<- get_t_test("summary_of_h2_percentile")

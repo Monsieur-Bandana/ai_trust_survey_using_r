@@ -53,7 +53,7 @@ execute_h7 <- function()
   
   # Wenn.der.virtuelle.Assistent.zu.seinem.L.sungsvorschlag.zus.tzlich.eine.Begr.ndung.oder.Argumentation.ausgibt..vertraue.ich.seinem.Ergebnis.eher.
   str_32 <- "Wenn.der.virtuelle.Assistent.zu.seinem.L.sungsvorschlag.zus.tzlich.eine.Begr.ndung.oder.Argumentation.ausgibt..vertraue.ich.seinem.Ergebnis.eher."
-  data_extended[[str_32]] <- 10 - as.numeric(data_extended[[str_32]])
+  data_extended[[str_32]] <- as.numeric(data_extended[[str_32]])
   statement_32 <- data_extended[[str_32]]
   print_mean(statement_32)
   # highest_possible_score <- highest_possible_score + 10
@@ -62,7 +62,7 @@ execute_h7 <- function()
   
   # Wenn.die.Firma.transparent.darstellt..auf.welcher.Datengrundlage.der.virtuelle.Assistent.trainiert.wurde.vertraue.ich.dem.virtuellen.Assistenten.mehr.
   str_33 <- "Wenn.die.Firma.transparent.darstellt..auf.welcher.Datengrundlage.der.virtuelle.Assistent.trainiert.wurde.vertraue.ich.dem.virtuellen.Assistenten.mehr."
-  data_extended[[str_33]] <- 10 - as.numeric(data_extended[[str_33]])
+  data_extended[[str_33]] <- as.numeric(data_extended[[str_33]])
   statement_33 <- data_extended[[str_33]]
   print_mean(statement_33)
   # highest_possible_score <- highest_possible_score + 10
@@ -89,7 +89,7 @@ execute_h7 <- function()
   summary <- summary + statement_35
   df_h7[["statement_35"]] <<- mean(statement_35)
   
-  # Ich.kommuniziere.ausschlie.lich.mit.einem.menschlichen.Mitarbeiter.
+  # Ich.telefoniere.mit.einem.menschlichen.Mitarbeiter..Dieser.nutzt.den.Assistenten.optional..indem.er.mit.diesem.per.Chat.kommuniziert..
   str_36 <- "Ich.telefoniere.mit.einem.menschlichen.Mitarbeiter..Dieser.nutzt.den.Assistenten.optional..indem.er.mit.diesem.per.Chat.kommuniziert."
   df_h7[["statement_36"]] <<- mean(as.numeric(data_extended[[str_36]]))
   statement_36 <- round(as.numeric(data_extended[[str_36]]) * 0.9)
@@ -141,6 +141,15 @@ execute_h7 <- function()
   highest_possible_score <- highest_possible_score + 6
   summary <- summary + mult
   df_h7[["mult"]] <<- mean(mult)
+  
+  # Ich.habe.au.erdem.folgende.Bedenken.bei.Virtuellen.Assistenten.im.IT.Support
+  
+  df_opt_answ <<- data.frame(answers=c(data_extended[["Ich.habe.au.erdem.folgende.Bedenken.bei.Virtuellen.Assistenten.im.IT.Support"]]))
+  
+  df_human_machine <<- data.frame(human_approach=c(df_h7[["statement_35"]]),
+                                  human_machine=c(mean(df_h7[["statement_36"]], df_h7[["statement_37"]], df_h7[["statement_38"]])),
+                                  machine=c(mean(df_h7[["statement_39"]], mean(df_h7[["statement_40"]])))
+                                  )
 
   
   highest_possible_score_h7 <<- highest_possible_score

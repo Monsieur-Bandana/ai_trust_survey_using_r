@@ -11,6 +11,10 @@ execute_h2 <-function()
   statement_2 <- as.numeric(data_extended[["Mir.ist.am.wichtigsten..dass.das.Problem.m.glichst.schnell.behoben.wird..wichtiger.als.der.Schutz.meiner.Privatsph.re."]])
   print_mean(statement_2)
   
+  # Generell.bin.ich.bereit..meine.Daten.f.r.Trainingszwecke.zur.Verf.gung.zu.stellen.
+  statement_21 <- as.numeric(data_extended[["Generell.bin.ich.bereit..meine.Daten.f.r.Trainingszwecke.zur.Verf.gung.zu.stellen."]])
+  print_mean(statement_2)
+  
   # Eine.strenge.Anmeldekontrolle.beim.IT.Support.zum.Schutz.meiner.Privatsph.re.w.rde.mich.st.ren.: activate to sort column ascending
   statement_3 <- as.numeric(data_extended[["Eine.strenge.Anmeldekontrolle.beim.IT.Support.zum.Schutz.meiner.Privatsph.re.w.rde.mich.st.ren."]])
   print_mean(statement_3)
@@ -58,11 +62,11 @@ execute_h2 <-function()
   statement_26 <- as.numeric(data_extended[["Das.Telekommunikationsunternehmen.kauft.einen.etablierten.KI.Assistenten.von.einem.Spezialisten.Unternehmen..z.B..ChatGPT.von.OpenAI..ein..Es.ist.nicht.nachvollziehbar..wie.und.basierend.auf.welch..."]])
   print_mean(statement_26)
   
-  highest_possible_score_h2 <<- 80
+  highest_possible_score_h2 <<- 90
   mean(statement_1)
-  df_h2 <<- data.frame(mean(statement_1), mean(statement_2), mean(statement_3), mean(op_closed_1), mean(op_closed_2), mean(statement_23), mean(statement_25), mean(statement_26))
+  df_h2 <<- data.frame(mean(statement_1), mean(statement_2), mean(statement_3), mean(statement_21), mean(op_closed_1), mean(op_closed_2), mean(statement_23), mean(statement_25), mean(statement_26))
   
-  summary <- statement_1 + statement_2 + statement_3 + op_closed_1 + op_closed_2 + statement_23 + statement_25 + statement_26
+  summary <- statement_1 + statement_2 + statement_3 +statement_21 + op_closed_1 + op_closed_2 + statement_23 + statement_25 + statement_26
   data_extended[["summary_of_h2"]] <- summary
   data_extended[["score_h2"]] <- add_h_column(summary, highest_possible_score_h2)
   return(data_extended)}

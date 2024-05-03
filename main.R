@@ -67,28 +67,35 @@ filtered_df <- filtered_df[filtered_df$combined_openess != "unexperienced-laggar
 filtered_df <- filtered_df[filtered_df$combined_openess != "others", ]
 
 create_mulitle_plots(filtered_df)
+rm(filtered_df)
 
 filtered_df2 <- data_frame_for_graph[data_frame_for_graph$combined_openess != "experienced-early adopter", ]
 filtered_df2 <- filtered_df2[filtered_df2$combined_openess != "experienced-majority", ]
 filtered_df2 <- filtered_df2[filtered_df2$combined_openess != "others", ]
 
 create_mulitle_plots(filtered_df2)
+rm(filtered_df2)
 
 filtered_df_ex_ea <- data_frame_for_graph[data_frame_for_graph$combined_openess == "experienced-early adopter", ]
 
 create_mulitle_plots(filtered_df_ex_ea)
+rm(filtered_df_ex_ea)
 
 filtered_df_ex_ma <- data_frame_for_graph[data_frame_for_graph$combined_openess == "experienced-majority", ]
 
 create_mulitle_plots(filtered_df_ex_ma)
+rm(filtered_df_ex_ma)
 
 filtered_df_rex_ma <- data_frame_for_graph[data_frame_for_graph$combined_openess == "rather experienced-majority", ]
 
 create_mulitle_plots(filtered_df_rex_ma)
+rm(filtered_df_rex_ma)
 
 filtered_df_uex_la <- data_frame_for_graph[data_frame_for_graph$combined_openess == "unexperienced-laggard", ]
 
 create_mulitle_plots(filtered_df_uex_la)
+rm(filtered_df_uex_la)
+rm(data_frame_for_graph)
 
 execute_overview()
 
