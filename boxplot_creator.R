@@ -1,14 +1,13 @@
 source("helper_functions.R")
 
-create_boxplot <- function(string, max_val){
-  min_val <- max_val/2/max_val * 100
+create_boxplot <- function(string){
   # to do: change values into %
   
   labels <- c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard", "others")
   colors <- c("#0000FF", "#6666FF", "#FF3333", "#990000", "black")
   
   color_palette <- transformer_subfunction(labels, colors, data_extended[["combined_openess"]], FALSE)
-  values_vec <- data_extended[[string]]/max_val*100
+  values_vec <- data_extended[[string]]
   print(values_vec)
   
   boxplot(values_vec, pch = 19, main=string, ylab = "Support of Hypothesis in percent")
@@ -24,7 +23,7 @@ create_boxplot <- function(string, max_val){
                add = TRUE)        # Add it over
   }
   
-  abline(h = min_val, lty = 2)
+  abline(h = 50, lty = 2)
   
   legend("bottomright", legend = labels, col = colors, pch = 19, title = "Data", xpd = TRUE, inset = c(0, -0.25))
 }

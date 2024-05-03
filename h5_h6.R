@@ -19,6 +19,7 @@ execute_h5 <- function(){
   print(data_extended[[labels_short_h5_h6]])
   # setting max value to 2 to filter only perticipants who voted 0
   data_extended[["score_h5"]] <<- add_h_column(data_extended[[labels_short_h5_h6]], 2)
+  
 }
 
 
