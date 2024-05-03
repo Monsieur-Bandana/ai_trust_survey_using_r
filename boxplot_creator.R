@@ -33,7 +33,7 @@ create_mulitle_plots <- function(data_frame_in_question){
   
   par(mar = c(10, 5, 2, 2), xpd=TRUE)
 
-  boxplot(values ~ hypotheses,data = data_frame_in_question, pch = 19, ylab = "Support of hypotheses in percent")
+  boxplot(values ~ hypotheses,data = data_frame_in_question, pch = 19, ylab = "Support of hypotheses in percent", outline = FALSE)
   abline(h = 50, lty = 2)
   # Points
   # for(h in data_frame_in_question)
