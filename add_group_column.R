@@ -44,9 +44,9 @@ execute_add_group_column <-function(){
   data_extended[[ai_prefilter]] <- change_to_bool_values(ai_prefilter)
   
   categorize_ai <- function(value){
-    if(value < 3){
+    if(value < 4){
       return("unexperienced")
-    }else if(value >= 6){
+    }else if(value >= 8){
       return("experienced")
     }else{
       return("rather experienced")
@@ -77,6 +77,12 @@ execute_add_group_column <-function(){
     it_openess = data_extended[["openess.towards.new.technologies"]]
   )
   
+  # calculate Pearson correlation coefficient
+  numbers <- c(0, 1, 2)
+  tr_it_op <- transformer_subfunction(c("laggard", "majority", "early adopter"), numbers, data_extended$openess.towards.new.technologies)
+  tr_ai <- transformer_subfunction(c("unexperienced", "rather experienced", "experienced"), numbers, data_extended$preknowledge.about.ai)
+  group_correlati0n <<- cor(tr_it_op, tr_ai)
+  
   # Concatenate the labels into a single string
   label_combinations <- paste(df$ai_openess, df$it_openess, sep = "-")
   df$label_combinations <- label_combinations
@@ -88,7 +94,8 @@ execute_add_group_column <-function(){
   
   # Print the label combinations and their frequencies
   print(label_frequency)
+  group_labels <<- sort(data_extended$combined_openess[!duplicated(data_extended$combined_openess)])
   
-  data_extended[["combined_openess"]] <- gsub("rather experienced-early adopter|rather experienced-laggard", "others", data_extended[["combined_openess"]])
+  # data_extended[["combined_openess"]] <- gsub("rather experienced-early adopter|rather experienced-laggard", "others", data_extended[["combined_openess"]])
   return(data_extended)
 }

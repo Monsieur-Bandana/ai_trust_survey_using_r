@@ -31,7 +31,7 @@ create_boxplot <- function(string){
 create_mulitle_plots <- function(data_frame_in_question){
 
   
-  par(mar = c(10, 5, 2, 2), xpd=TRUE)
+  par(mar = c(9, 4, 1, 2), xpd=TRUE)
 
   boxplot(values ~ hypotheses,data = data_frame_in_question, pch = 19, ylab = "Support of hypotheses in percent", outline = FALSE)
   abline(h = 50, lty = 2)
@@ -48,7 +48,7 @@ create_mulitle_plots <- function(data_frame_in_question){
     subset_data3 <- data_frame_in_question[h7, ]
     subset_data <- rbind(subset_data1, subset_data2, subset_data3)
     
-    print(subset_data)
+    # print(subset_data)
  
     # Create the stripchart
     stripchart(values ~ hypotheses,
@@ -65,7 +65,7 @@ create_mulitle_plots <- function(data_frame_in_question){
   # Assuming color_palette is a vector of colors for each group
   
                   # Add it over
-  legend("bottom", legend = labels, col = colors, pch = 19, ncol = 3, inset=c(0,-0.4))
+  legend("bottom", legend = labels, col = colors, pch = 19, ncol = (length(group_labels)/2), inset=c(0,-0.4))
   return()
   
 }

@@ -50,8 +50,8 @@ data_extended[["summary_of_h6_percentile"]] <- calculate_percentile(labels_short
 data_extended[["summary_of_h7_percentile"]] <- calculate_percentile("summary_of_h7", highest_possible_score_h7)
 
 
-create_boxplot("summary_of_h3_percentile")
-create_boxplot("summary_of_h6_percentile")
+# create_boxplot("summary_of_h3_percentile")
+# create_boxplot("summary_of_h6_percentile")
 
 
 data_frame_for_graph <- data.frame(
@@ -61,48 +61,20 @@ data_frame_for_graph <- data.frame(
 )
 
 
-labels <- c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard", "others")
-colors <- c("springgreen4", "springgreen2", "#FF3333", "#990000", "black")
+labels <- group_labels
+colors <- c("springgreen4", "springgreen2", "#FF3333", "#990000")
 color_palette <- transformer_subfunction(labels, colors, data_frame_for_graph$combined_openess, FALSE)
 data_frame_for_graph["colors"] <- color_palette
 
 create_mulitle_plots(data_frame_for_graph)
 
-filtered_df <- data_frame_for_graph[data_frame_for_graph$combined_openess != "rather experienced-majority", ]
-filtered_df <- filtered_df[filtered_df$combined_openess != "unexperienced-laggard", ]
-filtered_df <- filtered_df[filtered_df$combined_openess != "others", ]
+for(l in labels){
+  filtered_df <- data_frame_for_graph[data_frame_for_graph$combined_openess == l, ]
+  create_mulitle_plots(filtered_df)
+  rm(filtered_df)
+}
 
-create_mulitle_plots(filtered_df)
-rm(filtered_df)
-
-filtered_df2 <- data_frame_for_graph[data_frame_for_graph$combined_openess != "experienced-early adopter", ]
-filtered_df2 <- filtered_df2[filtered_df2$combined_openess != "experienced-majority", ]
-filtered_df2 <- filtered_df2[filtered_df2$combined_openess != "others", ]
-
-create_mulitle_plots(filtered_df2)
-rm(filtered_df2)
-
-filtered_df_ex_ea <- data_frame_for_graph[data_frame_for_graph$combined_openess == "experienced-early adopter", ]
-
-create_mulitle_plots(filtered_df_ex_ea)
-rm(filtered_df_ex_ea)
-
-filtered_df_ex_ma <- data_frame_for_graph[data_frame_for_graph$combined_openess == "experienced-majority", ]
-
-create_mulitle_plots(filtered_df_ex_ma)
-rm(filtered_df_ex_ma)
-
-filtered_df_rex_ma <- data_frame_for_graph[data_frame_for_graph$combined_openess == "rather experienced-majority", ]
-
-create_mulitle_plots(filtered_df_rex_ma)
-rm(filtered_df_rex_ma)
-
-filtered_df_uex_la <- data_frame_for_graph[data_frame_for_graph$combined_openess == "unexperienced-laggard", ]
-
-create_mulitle_plots(filtered_df_uex_la)
-rm(filtered_df_uex_la)
-rm(data_frame_for_graph)
 
 execute_overview()
 
-write.csv(data_extended, "C:\\Users\\nicol\\Documents\\GitCode\\winkelmann_semi\\ai_trust_survey_using_r\\extended_data.csv", row.names=FALSE)
+# write.csv(data_extended, "C:\\Users\\nicol\\Documents\\GitCode\\winkelmann_semi\\ai_trust_survey_using_r\\extended_data.csv", row.names=FALSE)

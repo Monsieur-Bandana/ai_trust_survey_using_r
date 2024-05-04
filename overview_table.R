@@ -48,16 +48,12 @@ get_variance_of_type <- function(type){
   filtered_df_ex_ea <- data_extended[data_extended$combined_openess == type, ]
   val_h1 <- var(filtered_df_ex_ea$summary_of_h1_percentile)
   val_h2 <- var(filtered_df_ex_ea$summary_of_h2_percentile)
-  val_h3 <- var(filtered_df_ex_ea$summary_of_h3_percentile)
-  val_h4 <- var(filtered_df_ex_ea$summary_of_h4_percentile)
-  val_h5 <- var(filtered_df_ex_ea$summary_of_h5_percentile)
-  val_h6 <- var(filtered_df_ex_ea$summary_of_h6_percentile)
   val_h7 <- var(filtered_df_ex_ea$summary_of_h7_percentile)
   
   variances <- c(val_h1, val_h2, val_h7)
   mean_var <- mean(variances)
   
-  df_variance <- rbind(df_variance, c(type, val_h1, val_h2, val_h3, val_h4, val_h5, val_h6, val_h7, mean_var))
+  df_variance <- rbind(df_variance, c(type, val_h1, val_h2, val_h7, mean_var))
 
   
   return(df_variance)
@@ -83,20 +79,14 @@ execute_overview <- function(){
   df_variance <<- data.frame(
     Type=c("t"),
     Var_H1=c(0), 
-    Var_H2=c(0), 
-    Var_H3=c(0), 
-    Var_H4=c(0), 
-    Var_H5=c(0), 
-    Var_H6=c(0), 
+    Var_H2=c(0),
     Var_H7=c(0),
     Mean_var=c(0)
     )
-  
-  df_variance <<- get_variance_of_type("experienced-early adopter")
-  df_variance <<- get_variance_of_type("experienced-majority")
-  df_variance <<- get_variance_of_type("rather experienced-majority")
-  df_variance <<- get_variance_of_type("unexperienced-laggard")
-  df_variance <<- get_variance_of_type("others")
+  for(l in group_labels){
+    df_variance <<- get_variance_of_type(l)
+    
+  }
   df_variance <<- df_variance[-1, ]
   
   overview_data_h3_h6 <<- data.frame(Hypothesis=c("h"), Disagree=c(0), Agree=c(0), Stake=c(0))
@@ -119,7 +109,7 @@ execute_overview <- function(){
   df_trust_multi <<- data.frame(tasks=data[[str_search]], level_of_trust=data_extended$combined_openess, score=(6-data_extended[[str_search]]))
   df_multi_by_group <<- data.frame(group_name=c("string"), count=c(0))
   
-  for(string_i in c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard")){
+  for(string_i in group_labels){
     get_multi_score(string_i)
     
   }
