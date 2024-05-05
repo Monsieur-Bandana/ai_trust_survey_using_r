@@ -1,3 +1,5 @@
+### calculate outcome values for H3 and H4 and add them to the main data frame
+
 source("helper_functions.R")
 
 ### H3 Customers want to be informed explicitely & H3 want to be informed regulary about collection of data

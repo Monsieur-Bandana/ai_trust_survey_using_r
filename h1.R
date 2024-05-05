@@ -1,3 +1,5 @@
+### calculate outcome values for H1 and add them to the main data frame
+
 source("helper_functions.R")
 source("rank_calculator.R")
 source("boxplot_creator.R")

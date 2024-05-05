@@ -1,3 +1,5 @@
+### calculate outcome values for H5 and H6 and add them to the main data frame
+
 source("helper_functions.R")
 
 ### H5 Customers want to be informed explicitely & H6 want to be informed regulary about the use of AI tools

@@ -1,3 +1,5 @@
+### main execute file. Run this file to execute the other files
+
 source("helper_functions.R")
 source("add_group_column.R")
 source("boxplot_creator.R")
@@ -37,6 +39,7 @@ execute_h6()
 ### execute Hypothesis 7
 data_extended <- execute_h7()
 
+### align outcomes to 0 to 100 scale
 frame_length <- length(data_extended[["summary_of_h1"]])
 hypothesis_h1 <- rep("H1", frame_length)
 hypothesis_h2 <- rep("H2", frame_length)
@@ -76,5 +79,7 @@ for(l in labels){
 
 
 execute_overview()
+
+print("I WAS EXECUTED COMPLETELY")
 
 # write.csv(data_extended, "C:\\Users\\nicol\\Documents\\GitCode\\winkelmann_semi\\ai_trust_survey_using_r\\extended_data.csv", row.names=FALSE)

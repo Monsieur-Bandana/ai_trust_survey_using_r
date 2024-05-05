@@ -1,3 +1,5 @@
+### calculate outcome values for H7 and add them to the main data frame
+
 source("rank_calculator.R")
 source("boxplot_creator.R")
 source("multiple_choice_calculator.R")

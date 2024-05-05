@@ -1,7 +1,9 @@
+### this file generates various dataframes for retrieving overviews and finding relations
+
 add_new_score_line <- function(row_name, score_name, summary_name){
   aggree_h <- table(data_extended[[score_name]])
   mean_score <- mean(data_extended[[summary_name]])
-  var<- var(data_extended[[summary_name]])
+  var<- sd(data_extended[[summary_name]])/mean(data_extended[[summary_name]]) * 100
   new_row <- c(row_name, aggree_h[1], aggree_h[2], mean_score, var)
   overview_data_h1_h2_h7 <- rbind(overview_data_h1_h2_h7, new_row)
   return(overview_data_h1_h2_h7)
@@ -43,25 +45,47 @@ get_multi_score <- function(group_name){
   
 }
 
-get_variance_of_type <- function(type){
+get_cv_of_type <- function(type){
   
   filtered_df_ex_ea <- data_extended[data_extended$combined_openess == type, ]
-  val_h1 <- var(filtered_df_ex_ea$summary_of_h1_percentile)
-  val_h2 <- var(filtered_df_ex_ea$summary_of_h2_percentile)
-  val_h7 <- var(filtered_df_ex_ea$summary_of_h7_percentile)
+  vec_h1 <- filtered_df_ex_ea$summary_of_h1_percentile
+  vec_h2 <- filtered_df_ex_ea$summary_of_h2_percentile
+  vec_h7 <- filtered_df_ex_ea$summary_of_h7_percentile
+  val_h1 <- sd(vec_h1)/ mean(vec_h1) * 100
+  val_h2 <- sd(vec_h2)/ mean(vec_h2) * 100
+  val_h7 <- sd(vec_h7)/ mean(vec_h7) * 100
   
-  variances <- c(val_h1, val_h2, val_h7)
-  mean_var <- mean(variances)
+  mean_var <- mean(c(val_h1, val_h2, val_h7))
+  mean_var_h1_h7 <- mean(c(val_h1, val_h7))
   
-  df_variance <- rbind(df_variance, c(type, val_h1, val_h2, val_h7, mean_var))
+  df_variance <- rbind(df_variance, c(type, val_h1, val_h2, val_h7, mean_var, mean_var_h1_h7))
 
   
   return(df_variance)
 }
 
+get_mean_of_type <- function(type){
+  filtered_df_ex_ea <- data_extended[data_extended$combined_openess == type, ]
+  vec_h1 <- filtered_df_ex_ea$summary_of_h1_percentile
+  vec_h2 <- filtered_df_ex_ea$summary_of_h2_percentile
+  vec_h7 <- filtered_df_ex_ea$summary_of_h7_percentile
+  val_m_h1 <- mean(vec_h1) 
+  val_m_h2 <- mean(vec_h2) 
+  val_m_h7 <- mean(vec_h7) 
+  print(vec_h1)
+  
+  mean_var <- mean(c(val_m_h1, val_m_h2, val_m_h7))
+  mean_var_h1_h7 <- mean(c(val_m_h7, val_m_h7))
+  
+  df_means_by_group <- rbind(df_means_by_group, c(type, val_m_h1, val_m_h2, val_m_h7, mean_var, mean_var_h1_h7))
+  
+  
+  return(df_means_by_group)
+}
+
 execute_overview <- function(){
   
-  overview_data_h1_h2_h7 <<- data.frame(Hypothesis=c("h"), Disagree=c(0), Agree=c(0), Mean_Score=c(0), Variance=c(0))
+  overview_data_h1_h2_h7 <<- data.frame(Hypothesis=c("h"), Disagree=c(0), Agree=c(0), Mean_Score=c(0), Coef_of_Variance=c(0))
   overview_data_h1_h2_h7 <<- add_new_score_line("H1", "score_h1", "summary_of_h1_percentile")
   overview_data_h1_h2_h7 <<- overview_data_h1_h2_h7[-1, ]
   overview_data_h1_h2_h7 <<- add_new_score_line("H2", "score_h2", "summary_of_h2_percentile")
@@ -78,16 +102,35 @@ execute_overview <- function(){
   
   df_variance <<- data.frame(
     Type=c("t"),
-    Var_H1=c(0), 
-    Var_H2=c(0),
-    Var_H7=c(0),
-    Mean_var=c(0)
+    cv_H1=c(0), 
+    cv_H2=c(0),
+    cv_H7=c(0),
+    Mean_cv=c(0),
+    Mean_cv_h1_h7=c(0)
     )
   for(l in group_labels){
-    df_variance <<- get_variance_of_type(l)
+    df_variance <<- get_cv_of_type(l)
     
   }
   df_variance <<- df_variance[-1, ]
+  
+  df_means_by_group <<- data.frame(
+    Type=c("x"),
+    mean_H1=c(0), 
+    mean_H2=c(0),
+    mean_H7=c(0),
+    gen_mean=c(0),
+    gen_mean=c(0)
+  )
+  for(l in group_labels){
+    df_means_by_group <<- get_mean_of_type(l)
+    
+  }
+  df_means_by_group <<- df_means_by_group[-1, ]
+  
+  general_cv_performance <<- mean(as.numeric(df_variance[["Mean_cv"]]))
+  
+  df_variance <<- cbind(df_variance, df_means_by_group[, 2:4])
   
   overview_data_h3_h6 <<- data.frame(Hypothesis=c("h"), Disagree=c(0), Agree=c(0), Stake=c(0))
   overview_data_h3_h6 <<- add_new_score_line_h3_h6("H3", "score_h3")

@@ -1,3 +1,5 @@
+### calculate outcome values for H2 and add them to the main data frame
+
 source("helper_functions.R")
 source("boxplot_creator.R")
 

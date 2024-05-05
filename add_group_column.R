@@ -1,7 +1,8 @@
-source("helper_functions.R")
-# this file prepares the data, by adding new columns and further removing unreadable characters
+### process answers from demographic survey part and generates group columns for the main dataframe
 
-# data <- read.csv("outcome.CSV", sep = ";", header = TRUE)
+source("helper_functions.R")
+
+## process data about openness of participant towards IT innovation
 execute_add_group_column <-function(){
   # get distribution of digital openness among the participants
   dig_op_prefilter <- "Ich.bin.in.einem.IT.Berufsfeld.t.tig."
@@ -77,13 +78,13 @@ execute_add_group_column <-function(){
     it_openess = data_extended[["openess.towards.new.technologies"]]
   )
   
-  # calculate Pearson correlation coefficient
+  ## calculate Pearson correlation coefficient
   numbers <- c(0, 1, 2)
   tr_it_op <- transformer_subfunction(c("laggard", "majority", "early adopter"), numbers, data_extended$openess.towards.new.technologies)
   tr_ai <- transformer_subfunction(c("unexperienced", "rather experienced", "experienced"), numbers, data_extended$preknowledge.about.ai)
   group_correlati0n <<- cor(tr_it_op, tr_ai)
   
-  # Concatenate the labels into a single string
+  ## Concatenate the labels into a single string
   label_combinations <- paste(df$ai_openess, df$it_openess, sep = "-")
   df$label_combinations <- label_combinations
   
