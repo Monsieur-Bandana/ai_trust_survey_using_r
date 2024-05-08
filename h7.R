@@ -137,10 +137,10 @@ execute_h7 <- function()
   
   # In.diesen.Aufgaben.vertraue.ich.virtuellen.Assistenten..Mehrfache.Auswahl.m.glich.
   col_name <- "In.diesen.Aufgaben.vertraue.ich.virtuellen.Assistenten..Mehrfache.Auswahl.m.glich."
-  data_extended[[col_name]] <- sapply(data_extended[[col_name]], multiple_choice_outcome)
+  data_extended[[col_name]] <- sapply(data_extended[[col_name]], multiple_choice_outcome) * 10/6
   mult <- data_extended[[col_name]]
   print_mean(mult)
-  highest_possible_score <- highest_possible_score + 6
+  highest_possible_score <- highest_possible_score + 10
   summary <- summary + mult
   df_h7[["mult"]] <<- mean(mult)
   
