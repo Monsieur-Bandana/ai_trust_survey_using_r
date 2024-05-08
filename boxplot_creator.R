@@ -1,5 +1,6 @@
 source("helper_functions.R")
 
+## create single boxplot
 create_boxplot <- function(string){
   # to do: change values into %
   
@@ -28,6 +29,7 @@ create_boxplot <- function(string){
   legend("bottomright", legend = labels, col = colors, pch = 19, title = "Data", xpd = TRUE, inset = c(0, -0.25))
 }
 
+## create mutliple boxplot
 create_mulitle_plots <- function(data_frame_in_question){
 
   

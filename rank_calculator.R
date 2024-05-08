@@ -1,3 +1,4 @@
+## calculate ranking question no. 18
 source("helper_functions.R")
 
 get_ranked_outcome <- function(value){
