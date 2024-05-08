@@ -149,7 +149,6 @@ execute_h7 <- function()
   data_extended[[col_name2]] <- 6 - sapply(data_extended[[col_name2]], multiple_choice_outcome)
   mult2 <- table(data_extended[[col_name2]])
   df_19 <<- data.frame(mult2)
-  print_mean(mult)
   
   # Ich.habe.au.erdem.folgende.Bedenken.bei.Virtuellen.Assistenten.im.IT.Support
   
