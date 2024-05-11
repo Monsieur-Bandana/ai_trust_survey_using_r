@@ -1,5 +1,6 @@
 ### this file generates various dataframes for retrieving overviews and finding relations
 
+## function to create overview of h1, h2, h7 outcomes
 add_new_score_line <- function(row_name, score_name, summary_name){
   aggree_h <- table(data_extended[[score_name]])
   mean_score <- mean(data_extended[[summary_name]])
@@ -9,6 +10,7 @@ add_new_score_line <- function(row_name, score_name, summary_name){
   return(overview_data_h1_h2_h7)
 }
 
+## function to create overview of h3 - h6 outcomes
 add_new_score_line_h3_h6 <- function(row_name, score_name){
   aggree_h <- table(data_extended[[score_name]])
   stake <- aggree_h[2]/nrow(data_extended) * 100
@@ -17,6 +19,7 @@ add_new_score_line_h3_h6 <- function(row_name, score_name){
   return(overview_data_h3_h6)
 }
 
+## get right tailed t test for h1 2 7
 get_t_test <- function(summary_name, mu_value = 50){
   data <- data_extended[[summary_name]]
   t_test_result <- t.test(data, mu = mu_value, alternative = "greater")
@@ -28,6 +31,7 @@ get_t_test <- function(summary_name, mu_value = 50){
   return(df_t)
 }
 
+## get probability t test for h3 4 5 6
 get_prop_test <- function(score_name){
   binary_data <- data_extended[[score_name]]
   prop_test_result <- prop.test(sum(binary_data), length(binary_data), p = 0.5, alternative = "greater")
@@ -37,6 +41,7 @@ get_prop_test <- function(score_name){
   return(df_prop)
 }
 
+## calculate which group trusts how many tasks from the multiple choice section
 get_multi_score <- function(group_name){
   filtered_df <- df_trust_multi[df_trust_multi$level_of_trust == group_name, ]
   mean_v <- mean(filtered_df$score)
@@ -45,6 +50,7 @@ get_multi_score <- function(group_name){
   
 }
 
+## get cv value of group types in h1 2 and 7
 get_cv_of_type <- function(type){
   
   filtered_df_ex_ea <- data_extended[data_extended$combined_openess == type, ]
@@ -64,6 +70,7 @@ get_cv_of_type <- function(type){
   return(df_variance)
 }
 
+## get mean of group types in h1 2 and 7
 get_mean_of_type <- function(type){
   filtered_df_ex_ea <- data_extended[data_extended$combined_openess == type, ]
   vec_h1 <- filtered_df_ex_ea$summary_of_h1_percentile
@@ -83,15 +90,17 @@ get_mean_of_type <- function(type){
   return(df_means_by_group)
 }
 
+## creates various overview tables
 execute_overview <- function(){
   
+  # create general overview
   overview_data_h1_h2_h7 <<- data.frame(Hypothesis=c("h"), Disagree=c(0), Agree=c(0), Mean_Score=c(0), Coef_of_Variance=c(0))
   overview_data_h1_h2_h7 <<- add_new_score_line("H1", "score_h1", "summary_of_h1_percentile")
   overview_data_h1_h2_h7 <<- overview_data_h1_h2_h7[-1, ]
   overview_data_h1_h2_h7 <<- add_new_score_line("H2", "score_h2", "summary_of_h2_percentile")
   overview_data_h1_h2_h7 <<- add_new_score_line("H7", "score_h7", "summary_of_h7_percentile")
   
-  
+  # at t values
   df_t <<- data.frame(statstic=c(0), df=c(0), p_value=c(0), variance=(0), deviation=(0), confidence_interval_1=c(0), confidence_interval_2=c(0))
   df_t <<- get_t_test("summary_of_h1_percentile")
   df_t <<- df_t[-1, ]
@@ -100,6 +109,7 @@ execute_overview <- function(){
   
   overview_data_h1_h2_h7 <<- cbind(overview_data_h1_h2_h7, df_t)
   
+  ## get table of mean and cv values according to groups
   df_variance <<- data.frame(
     Type=c("t"),
     cv_H1=c(0), 
@@ -132,6 +142,7 @@ execute_overview <- function(){
   
   df_variance <<- cbind(df_variance, df_means_by_group[, 2:4])
   
+  ## get outcome values of h3 - h6
   overview_data_h3_h6 <<- data.frame(Hypothesis=c("h"), Disagree=c(0), Agree=c(0), Stake=c(0))
   overview_data_h3_h6 <<- add_new_score_line_h3_h6("H3", "score_h3")
   overview_data_h3_h6 <<- add_new_score_line_h3_h6("H4", "score_h4")
@@ -139,6 +150,7 @@ execute_overview <- function(){
   overview_data_h3_h6 <<- add_new_score_line_h3_h6("H6", "score_h6")
   overview_data_h3_h6 <<- overview_data_h3_h6[-1, ]
   
+  #get t values
   df_prop <<- data.frame(p_value=c(0), interval_1=c(0), interval_2=c(0))
   df_prop <<- get_prop_test("score_h3")
   df_prop <<- df_prop[-1, ]
@@ -148,6 +160,7 @@ execute_overview <- function(){
   
   overview_data_h3_h6 <<- cbind(overview_data_h3_h6, df_prop)
   
+  # get which groups trust in how many tasks
   str_search <- "In.diesen.Aufgaben.vertraue.ich.virtuellen.Assistenten..Mehrfache.Auswahl.m.glich."
   df_trust_multi <<- data.frame(tasks=data[[str_search]], level_of_trust=data_extended$combined_openess, score=(6-data_extended[[str_search]]))
   df_multi_by_group <<- data.frame(group_name=c("string"), count=c(0))

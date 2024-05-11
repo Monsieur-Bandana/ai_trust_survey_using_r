@@ -2,7 +2,6 @@ source("helper_functions.R")
 
 ## create single boxplot
 create_boxplot <- function(string){
-  # to do: change values into %
   
   labels <- c("experienced-early adopter", "experienced-majority", "rather experienced-majority", "unexperienced-laggard", "others")
   colors <- c("#0000FF", "#6666FF", "#FF3333", "#990000", "black")
@@ -16,7 +15,7 @@ create_boxplot <- function(string){
   # Points
   for (i in 1:length(values_vec)){
     
-    stripchart(values_vec[i],              # Data
+    stripchart(values_vec[i],             
                method = "jitter", # Random noise
                pch = 19,
                col=color_palette[i],         # Color of the symbol
@@ -52,21 +51,17 @@ create_mulitle_plots <- function(data_frame_in_question){
     
     # print(subset_data)
  
-    # Create the stripchart
     stripchart(values ~ hypotheses,
                data = subset_data,
-               method = "jitter",   # Random noise
+               method = "jitter",  
                pch = 19,
                jitter = 0.2,
                offset = 0.9,
-               col = subset_data$colors,  # Color of the symbol
-               vertical = TRUE,         # Vertical mode
-               add = TRUE)              # Add it over
+               col = subset_data$colors, 
+               vertical = TRUE,         
+               add = TRUE)              
   }
     
-  # Assuming color_palette is a vector of colors for each group
-  
-                  # Add it over
   legend("bottom", legend = labels, col = colors, pch = 19, ncol = (length(group_labels)/2), inset=c(0,-0.4))
   return()
   
