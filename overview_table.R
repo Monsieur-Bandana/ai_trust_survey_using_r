@@ -10,11 +10,23 @@ add_new_score_line <- function(row_name, score_name, summary_name){
   return(overview_data_h1_h2_h7)
 }
 
+get_agree_stake <- function(aggree_h){
+  if (length(aggree_h)>1){
+    aggree <<-  aggree_h[2]
+    disaggree <<- aggree_h[1]
+  }else{
+    aggree <<-  aggree_h[1]
+  }
+}
+
 ## function to create overview of h3 - h6 outcomes
-add_new_score_line_h3_h6 <- function(row_name, score_name){
-  aggree_h <- table(data_extended[[score_name]])
-  stake <- aggree_h[2]/nrow(data_extended) * 100
-  new_row <- c(row_name, aggree_h[1], aggree_h[2], stake)
+add_new_score_line_h3_h6 <- function(grouptype, row_name, score_name, database){
+  aggree_h <- table(database[[score_name]])
+  aggree <<- 0
+  disaggree <<- 0
+  get_agree_stake(aggree_h)
+  stake <- aggree/nrow(database) * 100
+  new_row <- c(grouptype, row_name, disaggree, aggree, stake)
   overview_data_h3_h6 <- rbind(overview_data_h3_h6, new_row)
   return(overview_data_h3_h6)
 }
@@ -143,12 +155,21 @@ execute_overview <- function(){
   df_variance <<- cbind(df_variance, df_means_by_group[, 2:4])
   
   ## get outcome values of h3 - h6
-  overview_data_h3_h6 <<- data.frame(Hypothesis=c("h"), Disagree=c(0), Agree=c(0), Stake=c(0))
-  overview_data_h3_h6 <<- add_new_score_line_h3_h6("H3", "score_h3")
-  overview_data_h3_h6 <<- add_new_score_line_h3_h6("H4", "score_h4")
-  overview_data_h3_h6 <<- add_new_score_line_h3_h6("H5", "score_h5")
-  overview_data_h3_h6 <<- add_new_score_line_h3_h6("H6", "score_h6")
+  overview_data_h3_h6 <<- data.frame(Grouptype=c("t"),Hypothesis=c("h"), Disagree=c(0), Agree=c(0), Stake=c(0))
+  overview_data_h3_h6 <<- add_new_score_line_h3_h6("general","H3", "score_h3", data_extended)
+  overview_data_h3_h6 <<- add_new_score_line_h3_h6("general","H4", "score_h4", data_extended)
+  overview_data_h3_h6 <<- add_new_score_line_h3_h6("general","H5", "score_h5", data_extended)
+  overview_data_h3_h6 <<- add_new_score_line_h3_h6("general","H6", "score_h6", data_extended)
   overview_data_h3_h6 <<- overview_data_h3_h6[-1, ]
+  
+  ## get group specific outcomes for h3 - h6
+  for (ty in group_labels){
+    current_df <- data_extended[data_extended$combined_openess == ty, ]
+    overview_data_h3_h6 <<- add_new_score_line_h3_h6(ty,"H3", "score_h3", current_df)
+    overview_data_h3_h6 <<- add_new_score_line_h3_h6(ty,"H4", "score_h4", current_df)
+    overview_data_h3_h6 <<- add_new_score_line_h3_h6(ty,"H5", "score_h5", current_df)
+    overview_data_h3_h6 <<- add_new_score_line_h3_h6(ty,"H6", "score_h6", current_df)
+  }
   
   #get t values
   df_prop <<- data.frame(p_value=c(0), interval_1=c(0), interval_2=c(0))
